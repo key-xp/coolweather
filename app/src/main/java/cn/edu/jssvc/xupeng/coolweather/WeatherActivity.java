@@ -24,14 +24,13 @@ import com.bumptech.glide.Glide;
 
 import java.io.IOException;
 
-import javax.security.auth.callback.Callback;
-
 import cn.edu.jssvc.xupeng.coolweather.gson.Forecast;
 import cn.edu.jssvc.xupeng.coolweather.gson.Weather;
 import cn.edu.jssvc.xupeng.coolweather.service.AutoUpdateService;
 import cn.edu.jssvc.xupeng.coolweather.util.HttpUtil;
 import cn.edu.jssvc.xupeng.coolweather.util.Utility;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class WeatherActivity extends AppCompatActivity {
@@ -166,10 +165,15 @@ public class WeatherActivity extends AppCompatActivity {
 
     private void loadBingPic() {
         String requestBingPic = "http://guolin.tech/api/bing_pic";
-        HttpUtil.sendOkHttpRequest(requestBingPic, new Callback() {
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                final String bingPic = response.body().string();
+          HttpUtil.sendOkHttpRequest(requestBingPic, new okhttp3.Callback() {
+              @Override
+              public void onFailure(Call call, IOException e) {
+                  e.printStackTrace();
+              }
+
+              @Override
+              public void onResponse(Call call, Response response) throws IOException {
+                  final String bingPic = response.body().string();
                 SharedPreferences.Editor editor = PreferenceManager.getDefaultSharedPreferences(WeatherActivity.this).edit();
                 editor.putString("bing_pic", bingPic);
                 editor.apply();
@@ -179,13 +183,8 @@ public class WeatherActivity extends AppCompatActivity {
                         Glide.with(WeatherActivity.this).load(bingPic).into(bingPicImg);
                     }
                 });
-            }
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
-        });
+              }
+          });
     }
 
     /**

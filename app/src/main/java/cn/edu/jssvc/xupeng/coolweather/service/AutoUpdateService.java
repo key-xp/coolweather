@@ -11,12 +11,11 @@ import android.preference.PreferenceManager;
 
 import java.io.IOException;
 
-import javax.security.auth.callback.Callback;
-
 import cn.edu.jssvc.xupeng.coolweather.gson.Weather;
 import cn.edu.jssvc.xupeng.coolweather.util.HttpUtil;
 import cn.edu.jssvc.xupeng.coolweather.util.Utility;
 import okhttp3.Call;
+import okhttp3.Callback;
 import okhttp3.Response;
 
 public class AutoUpdateService extends Service {
@@ -50,7 +49,11 @@ public class AutoUpdateService extends Service {
             Weather weather = Utility.handleWeatherResponse(weatherString);
             String weatherId = weather.basic.weatherId;
             String weatherUrl = "http://guolin.tech/api/weather?cityid=" + weatherId + "&key=bc0418b57b2d4918819d3974ac1285d9";
-            HttpUtil.sendOkHttpRequest(weatherUrl, new Callback() {
+            HttpUtil.sendOkHttpRequest(weatherUrl, new okhttp3.Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String responseText = response.body().string();
@@ -60,11 +63,6 @@ public class AutoUpdateService extends Service {
                         editor.putString("weather", responseText);
                         editor.apply();
                     }
-                }
-
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
                 }
             });
         }
