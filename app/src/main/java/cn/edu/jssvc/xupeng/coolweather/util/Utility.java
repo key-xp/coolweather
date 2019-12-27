@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import cn.edu.jssvc.xupeng.coolweather.db.City;
 import cn.edu.jssvc.xupeng.coolweather.db.County;
 import cn.edu.jssvc.xupeng.coolweather.db.Province;
+import cn.edu.jssvc.xupeng.coolweather.gson.Weather;
 
 public class Utility {
     public static boolean handleProvinceResponse(String response) {
