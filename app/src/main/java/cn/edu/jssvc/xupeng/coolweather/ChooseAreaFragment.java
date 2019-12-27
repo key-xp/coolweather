@@ -52,36 +52,17 @@ public class ChooseAreaFragment extends Fragment {
 
     private List<String> dataList = new ArrayList<>();
 
-    /**
-     * 省列表
-     */
     private List<Province> provinceList;
 
-    /**
-     * 市列表
-     */
     private List<City> cityList;
 
-    /**
-     * 县列表
-     */
     private List<County> countyList;
 
-    /**
-     * 选中的省份
-     */
     private Province selectedProvince;
 
-    /**
-     * 选中的城市
-     */
     private City selectedCity;
 
-    /**
-     * 当前选中的级别
-     */
     private int currentLevel;
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -94,7 +75,6 @@ public class ChooseAreaFragment extends Fragment {
         listView.setAdapter(adapter);
         return view;
     }
-
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
