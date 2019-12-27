@@ -28,6 +28,7 @@ import javax.security.auth.callback.Callback;
 
 import cn.edu.jssvc.xupeng.coolweather.gson.Forecast;
 import cn.edu.jssvc.xupeng.coolweather.gson.Weather;
+import cn.edu.jssvc.xupeng.coolweather.service.AutoUpdateService;
 import cn.edu.jssvc.xupeng.coolweather.util.HttpUtil;
 import cn.edu.jssvc.xupeng.coolweather.util.Utility;
 import okhttp3.Call;
